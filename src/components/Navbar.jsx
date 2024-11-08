@@ -1,4 +1,15 @@
-import { AppBar, Toolbar, Typography, MenuItem, Stack, IconButton, Drawer, List, ListItem, ListItemText } from '@mui/material';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  MenuItem,
+  Stack,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+} from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useState } from 'react';
@@ -22,21 +33,9 @@ const Navbar = () => {
     setDrawerOpen(open);
   };
 
-  const navLinks = ['Home', 'About', 'Contact'].map((item, index) => (
-    <MenuItem
-      key={index}
-      component={NavLink}
-      to={item.toLowerCase()}
-      style={({ isActive }) => (isActive ? activeStyle : undefined)}
-    >
-      {item}
-    </MenuItem>
-  ));
-
   return (
     <AppBar position="static">
       <Toolbar>
-        
         <Typography
           component={NavLink}
           to="/"
@@ -45,7 +44,6 @@ const Navbar = () => {
           Student CRUD 2.0
         </Typography>
 
-        
         {isMobile ? (
           <>
             <IconButton
@@ -57,21 +55,43 @@ const Navbar = () => {
               <MenuIcon />
             </IconButton>
 
-            
             <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer(false)}>
               <List onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
-                {['Home', 'About', 'Contact'].map((text, index) => (
-                  <ListItem button key={index} component={NavLink} to={text.toLowerCase()}>
-                    <ListItemText primary={text} />
-                  </ListItem>
-                ))}
+                <ListItem button component={NavLink} to="/home">
+                  <ListItemText primary="Home" />
+                </ListItem>
+                <ListItem button component={NavLink} to="/about">
+                  <ListItemText primary="About" />
+                </ListItem>
+                <ListItem button component={NavLink} to="/contact">
+                  <ListItemText primary="Contact" />
+                </ListItem>
               </List>
             </Drawer>
           </>
         ) : (
-         
           <Stack direction="row" spacing={2}>
-            {navLinks}
+            <MenuItem
+              component={NavLink}
+              to="/"
+              style={({ isActive }) => (isActive ? activeStyle : undefined)}
+            >
+              Home
+            </MenuItem>
+            <MenuItem
+              component={NavLink}
+              to="/about"
+              style={({ isActive }) => (isActive ? activeStyle : undefined)}
+            >
+              About
+            </MenuItem>
+            <MenuItem
+              component={NavLink}
+              to="/contact"
+              style={({ isActive }) => (isActive ? activeStyle : undefined)}
+            >
+              Contact
+            </MenuItem>
           </Stack>
         )}
       </Toolbar>
